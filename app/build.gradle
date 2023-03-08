@@ -52,6 +52,10 @@ android {
 
 dependencies {
     implementation project(":design")
+    implementation project(":network")
+    implementation project(":data")
+    implementation project(":domain")
+    implementation project(":shifts")
 
     implementation libs.androidx.activity.compose
     implementation libs.androidx.navigation.navigationCompose
