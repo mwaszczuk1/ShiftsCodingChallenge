@@ -1,2 +1,7 @@
-include ':app'
 rootProject.name = "Coding Challenge"
+include ':app'
+include ':design'
+include ':shifts'
+include ':data'
+include ':domain'
+include ':network'

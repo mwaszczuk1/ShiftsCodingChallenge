@@ -1,16 +1,18 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.shiftkey.codingchallenge"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -23,6 +25,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "flavor"
+    productFlavors {
+        staging {
+            dimension 'flavor'
+        }
+
+        production {
+            dimension 'flavor'
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -30,16 +42,33 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.3.1"
+    }
 }
 
 dependencies {
+    implementation project(":design")
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation libs.androidx.activity.compose
+    implementation libs.androidx.navigation.navigationCompose
+    implementation libs.google.accompanist.navigation.material
+    implementation libs.google.accompanist.navigation.animation
+//    implementation libs.androidx.core.ktx
+    implementation libs.kotlinx.coroutines.core
+
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.lifecycle.viewmodel.ktx
+
+    implementation libs.timber
+
+    implementation libs.google.dagger.hiltAndroid.library
+    kapt libs.google.dagger.hiltAndroid.compiler
+
+    // Chucker
+    debugImplementation 'com.github.chuckerteam.chucker:library:3.5.2'
+    releaseImplementation 'com.github.chuckerteam.chucker:library-no-op:3.5.2'
 }
