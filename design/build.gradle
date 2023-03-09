@@ -50,5 +50,7 @@ dependencies {
 
     api libs.coil.compose
 
+    implementation libs.androidx.navigation.navigationCompose
+
     debugApi libs.androidx.compose.uiTooling
 }

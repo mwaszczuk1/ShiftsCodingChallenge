@@ -34,6 +34,11 @@ val ShiftsTypography = Typography(
         fontWeight = FontWeight.SemiBold,
         fontSize = 15.sp
     ),
+    h5 = TextStyle(
+        fontFamily = Poppins,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 12.sp
+    ),
     h6 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Bold,
@@ -57,7 +62,7 @@ val ShiftsTypography = Typography(
     subtitle1 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp
+        fontSize = 15.sp
     ),
     caption = TextStyle(
         fontFamily = Poppins,

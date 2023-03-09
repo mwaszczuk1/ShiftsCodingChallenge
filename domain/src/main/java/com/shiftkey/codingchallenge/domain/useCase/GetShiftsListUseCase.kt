@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 import javax.inject.Inject
 
 class GetShiftsListUseCase @Inject constructor(
-    private val networkErrorHandler: NetworkErrorHandler,
+    networkErrorHandler: NetworkErrorHandler,
     private val shiftsRepository: ShiftsRepository,
     private val dispatchers: DispatchersProvider
 ) : UseCase<ShiftsList>(networkErrorHandler) {

@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.shiftkey.codingchallenge.design.theme.ShiftKeyTheme
 import com.shiftkey.codingchallenge.design.theme.White
-import com.shiftkey.codingchallenge.shifts.list.ShiftsListScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -32,8 +31,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    //                MainActivityComposable()
-                    ShiftsListScreen()
+                    MainActivityNavigation(true)
                 }
             }
         }

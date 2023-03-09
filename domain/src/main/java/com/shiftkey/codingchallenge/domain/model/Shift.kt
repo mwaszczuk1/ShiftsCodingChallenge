@@ -1,37 +1,31 @@
 package com.shiftkey.codingchallenge.domain.model
 
-import com.shiftkey.codingchallenge.data.response.shifts.FacilityTypeResponse
+import com.shiftkey.codingchallenge.data.response.shifts.*
 import com.shiftkey.codingchallenge.data.response.shifts.LocalizedSpecialtyResponse
-import com.shiftkey.codingchallenge.data.response.shifts.ShiftResponse
-import com.shiftkey.codingchallenge.data.response.shifts.SkillResponse
 
 data class Shift(
-    val covid: Boolean,
-    val endTime: String,
-    val facilityType: FacilityTypeResponse,
-    val localizedSpecialty: LocalizedSpecialtyResponse,
-    val normalizedEndDateTime: String,
-    val normalizedStartDateTime: String,
-    val premiumRate: Boolean,
     val shiftId: Int,
-    val shiftKind: ShiftKind,
-    val skill: SkillResponse,
+    val covid: Boolean,
     val startTime: String,
-    val timezone: String,
-    val withinDistance: Int
+    val endTime: String,
+    val facilityType: Facility,
+    val localizedSpecialty: LocalizedSpecialty,
+    val premiumRate: Boolean,
+    val shiftKind: ShiftKind,
+    val skill: Skill,
+    val timezone: Timezone,
+    val withinDistance: String
 )
 
 fun ShiftResponse.toDomain() = Shift(
     covid = covid,
     startTime = startTime.toString(),
     endTime = endTime.toString(),
-    normalizedStartDateTime = normalizedStartDateTime,
-    normalizedEndDateTime = normalizedEndDateTime,
-    facilityType = facilityType,
-    localizedSpecialty = localizedSpecialty,
-    skill = skill,
-    timezone = timezone,
-    withinDistance = withinDistance,
+    facilityType = facilityType.toDomain(),
+    localizedSpecialty = localizedSpecialty.toDomain(),
+    skill = skill.toDomain(),
+    timezone = Timezone.from(timezone),
+    withinDistance = "$withinDistance MI",
     shiftId = shiftId,
     premiumRate = premiumRate,
     shiftKind = ShiftKind.from(shiftKind)
@@ -47,3 +41,70 @@ enum class ShiftKind(private val apiString: String) {
         fun from(apiString: String) = values().firstOrNull { it.apiString == apiString } ?: UNSUPPORTED
     }
 }
+
+enum class Timezone(
+    private val apiString: String
+    ) {
+    CENTRAL("Central"),
+    UNKNOWN("");
+
+    companion object {
+        fun from(apiString: String) = values().firstOrNull { it.apiString == apiString } ?: UNKNOWN
+    }
+}
+
+data class Skill(
+    val color: String,
+    val id: Int,
+    val name: String
+)
+
+fun SkillResponse.toDomain() = Skill(
+    color = color,
+    id = id,
+    name = name
+)
+
+data class Facility(
+    val color: String,
+    val id: Int,
+    val name: String
+)
+
+fun FacilityTypeResponse.toDomain() = Facility(
+    color = color,
+    id = id,
+    name = name
+)
+
+data class LocalizedSpecialty(
+    val abbreviation: String,
+    val id: Int,
+    val name: String,
+    val specialty: Specialty,
+    val specialtyId: Int,
+    val stateId: Int
+)
+
+fun LocalizedSpecialtyResponse.toDomain() = LocalizedSpecialty(
+    abbreviation = abbreviation,
+    id = id,
+    name = name,
+    specialty = specialty.toDomain(),
+    specialtyId = specialtyId,
+    stateId = stateId
+)
+
+data class Specialty(
+    val abbreviation: String,
+    val color: String,
+    val id: Int,
+    val name: String
+)
+
+fun SpecialtyResponse.toDomain() = Specialty(
+    abbreviation = abbreviation,
+    color = color,
+    id = id,
+    name = name
+)
