@@ -12,6 +12,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
 import retrofit2.converter.gson.GsonConverterFactory
@@ -25,6 +26,13 @@ class WebSocketsModule {
     @Provides
     @Singleton
     fun provideOkHttp(chucker: ChuckerInterceptor): OkHttpClient = OkHttpClient.Builder()
+        .let {
+            if (BuildConfig.DEBUG) {
+                it.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+            } else {
+                it
+            }
+        }
         .addInterceptor(chucker)
         .build()
 

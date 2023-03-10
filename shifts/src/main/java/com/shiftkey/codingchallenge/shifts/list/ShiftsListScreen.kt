@@ -15,13 +15,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.shiftkey.codingchallenge.core.formatter.getDateLabel
 import com.shiftkey.codingchallenge.design.components.WeekCalendar
 import com.shiftkey.codingchallenge.design.components.topBar.LocalTopBar
+import com.shiftkey.codingchallenge.design.theme.SizeS
+import com.shiftkey.codingchallenge.design.theme.SizeXXXS
 import com.shiftkey.codingchallenge.domain.model.Shift
 import com.shiftkey.codingchallenge.domain.model.ShiftsList
+import com.shiftkey.codingchallenge.shifts.R
 import com.shiftkey.codingchallenge.shifts.details.SHIFT_DETAILS_SCREEN_ROUTE
 import java.time.LocalDate
 
@@ -31,7 +36,7 @@ fun ShiftsListScreen(
     navController: NavHostController
 ) {
     with(LocalTopBar.current) {
-        setTitle("Shifts")
+        setTitle(stringResource(R.string.shifts_list_screen_title))
         toggleNavigationIcon(false)
     }
 
@@ -46,7 +51,10 @@ fun ShiftsListScreen(
                 updateSelectedDate = viewModel::selectDate,
                 updateScrollToDate = viewModel::scrollToDay,
                 loadNextWeek = viewModel::loadNextWeek,
-                onItemClicked = { navController.navigate(SHIFT_DETAILS_SCREEN_ROUTE) }
+                onItemClicked = { shift ->
+                    viewModel.saveShiftDetails(shift)
+                    navController.navigate(SHIFT_DETAILS_SCREEN_ROUTE)
+                }
             )
         }
         AnimatedVisibility(
@@ -56,8 +64,8 @@ fun ShiftsListScreen(
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
-                    .padding(bottom = 16.dp)
-                    .shadow(elevation = 4.dp, shape = CircleShape)
+                    .padding(bottom = SizeS)
+                    .shadow(elevation = SizeXXXS, shape = CircleShape)
                     .background(MaterialTheme.colors.surface, CircleShape)
                     .scale(0.8f)
             )
@@ -119,17 +127,17 @@ fun ShiftsListLayout(
             state = listState,
             modifier = Modifier
                 .fillMaxSize(),
-            contentPadding = PaddingValues(bottom = 16.dp, start = 16.dp, end = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            contentPadding = PaddingValues(bottom = SizeS, start = SizeS, end = SizeS),
+            verticalArrangement = Arrangement.spacedBy(SizeS)
         ) {
             data.shifts.forEach { (day, shifts) ->
                 item(day) {
                     updateSelectedDate(day)
                     Text(
                         modifier = Modifier
-                            .padding(top = 16.dp),
-                        text = day.toString(),
-                        style = MaterialTheme.typography.h3
+                            .padding(top = SizeS),
+                        text = day.getDateLabel(LocalContext.current),
+                        style = MaterialTheme.typography.h4
                     )
                 }
                 items(shifts) {
@@ -138,9 +146,6 @@ fun ShiftsListLayout(
             }
         }
     }
-
 }
-
-
 
 const val SHIFT_LIST_SCREEN_ROUTE = "shifts_list"

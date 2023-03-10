@@ -17,6 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.shiftkey.codingchallenge.design.DesignDrawables
+import com.shiftkey.codingchallenge.design.theme.SizeXS
+import com.shiftkey.codingchallenge.design.theme.SizeXXXS
 
 @Composable
 fun Chip(
@@ -27,14 +29,14 @@ fun Chip(
 ) {
     Row(
         modifier = modifier
-            .border(1.dp, color, RoundedCornerShape(4.dp))
-            .padding(horizontal = 4.dp),
+            .border(1.dp, color, RoundedCornerShape(SizeXXXS))
+            .padding(horizontal = SizeXXXS),
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {
             Icon(
                 modifier = Modifier
-                    .size(12.dp),
+                    .size(SizeXS),
                 painter = icon,
                 contentDescription = "",
                 tint = color
@@ -42,7 +44,7 @@ fun Chip(
         }
         Text(
             modifier = Modifier
-                .padding(start = 4.dp),
+                .padding(start = SizeXXXS),
             text = text,
             style = MaterialTheme.typography.caption.copy(color = color)
         )

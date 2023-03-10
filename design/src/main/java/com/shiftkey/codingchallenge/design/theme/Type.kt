@@ -5,7 +5,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import com.shiftkey.codingchallenge.design.R
 
 private val Poppins = FontFamily(
@@ -17,57 +16,57 @@ val ShiftsTypography = Typography(
     h1 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 33.sp
+        fontSize = TextSizeL
     ),
     h2 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 23.sp
+        fontSize = TextSizeM
     ),
     h3 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 19.sp
+        fontSize = TextSizeS
     ),
     h4 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 15.sp
+        fontSize = TextSizeXS
     ),
     h5 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 12.sp
+        fontSize = TextSizeXXS
     ),
     h6 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Bold,
-        fontSize = 9.sp
+        fontSize = TextSizeXXS
     ),
     body1 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 19.sp
+        fontSize = TextSizeXXS
     ),
     body2 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp
+        fontSize = TextSizeXXXS
     ),
     button = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 15.sp
+        fontSize = TextSizeXS
     ),
     subtitle1 = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 15.sp
+        fontSize = TextSizeXS
     ),
     caption = TextStyle(
         fontFamily = Poppins,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
+        fontSize = TextSizeXXXXS,
         color = Gray152
     )
 )

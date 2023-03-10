@@ -1,0 +1,13 @@
+<resources>
+    <string name="shifts_list_screen_title">Explore shifts</string>
+    <string name="shift_details_screen_title">Shift Details</string>
+
+    <string name="shift_details_screen_approx_location">Within %1$s mi of this location</string>
+    <string name="shift_details_screen_time_until_shift_start">This shift starts in</string>
+
+    <string name="shift_details_screen_premium_shift">Premium shift</string>
+    <string name="shift_details_screen_day_shift">Day shift</string>
+    <string name="shift_details_screen_evening_shift">Evening shift</string>
+    <string name="shift_details_screen_night_shift">Night shift</string>
+    <string name="shift_details_screen_unknown_shift">Unknown shift</string>
+</resources>

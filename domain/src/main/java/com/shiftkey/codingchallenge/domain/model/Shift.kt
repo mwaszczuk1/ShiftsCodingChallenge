@@ -1,31 +1,34 @@
 package com.shiftkey.codingchallenge.domain.model
 
+import com.shiftkey.codingchallenge.core.converter.toSystemZonedLocalDateTime
 import com.shiftkey.codingchallenge.data.response.shifts.*
 import com.shiftkey.codingchallenge.data.response.shifts.LocalizedSpecialtyResponse
+import java.time.LocalDateTime
+import java.time.OffsetDateTime
 
 data class Shift(
     val shiftId: Int,
     val covid: Boolean,
-    val startTime: String,
-    val endTime: String,
+    val startTime: LocalDateTime,
+    val endTime: LocalDateTime,
     val facilityType: Facility,
     val localizedSpecialty: LocalizedSpecialty,
     val premiumRate: Boolean,
     val shiftKind: ShiftKind,
     val skill: Skill,
     val timezone: Timezone,
-    val withinDistance: String
+    val withinDistance: Int
 )
 
 fun ShiftResponse.toDomain() = Shift(
     covid = covid,
-    startTime = startTime.toString(),
-    endTime = endTime.toString(),
+    startTime = startTime.toSystemZonedLocalDateTime(),
+    endTime = endTime.toSystemZonedLocalDateTime(),
     facilityType = facilityType.toDomain(),
     localizedSpecialty = localizedSpecialty.toDomain(),
     skill = skill.toDomain(),
     timezone = Timezone.from(timezone),
-    withinDistance = "$withinDistance MI",
+    withinDistance = withinDistance,
     shiftId = shiftId,
     premiumRate = premiumRate,
     shiftKind = ShiftKind.from(shiftKind)

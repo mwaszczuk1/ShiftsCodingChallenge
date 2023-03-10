@@ -6,7 +6,6 @@ plugins {
 }
 
 android {
-    namespace 'com.shiftkey.codingchallenge.shifts'
     compileSdk 33
 
     defaultConfig {
@@ -18,8 +17,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -39,12 +42,16 @@ android {
 }
 
 dependencies {
+    implementation project(":core")
     implementation project(":design")
     implementation project(":domain")
 
     implementation libs.google.dagger.hiltAndroid.library
     implementation libs.androidx.hilt.hiltNavigation.compose
     kapt libs.google.dagger.hiltAndroid.compiler
+
+    implementation libs.google.gms.playServices.maps
+    implementation libs.google.maps.compose
 
     implementation libs.timber
 }

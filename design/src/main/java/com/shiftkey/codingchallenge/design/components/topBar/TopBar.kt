@@ -14,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.shiftkey.codingchallenge.design.DesignDrawables
+import com.shiftkey.codingchallenge.design.theme.SizeS
 
 @Composable
 fun TopBar(
@@ -21,7 +22,7 @@ fun TopBar(
 ) {
     TopAppBar(
         backgroundColor = MaterialTheme.colors.surface,
-        contentPadding = PaddingValues(horizontal = 16.dp),
+        contentPadding = PaddingValues(horizontal = SizeS),
         elevation = 0.dp
     ) {
         AnimatedVisibility(
@@ -29,7 +30,7 @@ fun TopBar(
         ) {
             Icon(
                 modifier = Modifier
-                    .padding(end = 16.dp)
+                    .padding(end = SizeS)
                     .clickable {
                         navController.navigateUp()
                     },
@@ -41,7 +42,7 @@ fun TopBar(
         }
         Text(
             text = LocalTopBar.current.state.value.title,
-            style = MaterialTheme.typography.h2
+            style = MaterialTheme.typography.h3
         )
     }
 }

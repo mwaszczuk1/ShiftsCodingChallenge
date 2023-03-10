@@ -12,6 +12,9 @@ androidx-lifecycle = "2.4.0"
 coil = "1.4.0"
 retrofit = "2.9.0"
 okhttp3 = "4.9.2"
+gms-google-services = "4.3.10"
+gms-google-maps = "18.0.2"
+compose-google-maps = "2.11.1"
 
 [libraries]
 android-tools-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
@@ -52,6 +55,10 @@ kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-t
 squareup-okhttp-bom = { module = "com.squareup.okhttp3:okhttp-bom", version.ref = "okhttp3" }
 squareup-retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 squareup-retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit"}
+
+google-gmsGoogleServices = { module = "com.google.gms:google-services", version.ref = "gms-google-services" }
+google-gms-playServices-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "gms-google-maps" }
+google-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "compose-google-maps" }
 
 timber = "com.jakewharton.timber:timber:5.0.1"
 

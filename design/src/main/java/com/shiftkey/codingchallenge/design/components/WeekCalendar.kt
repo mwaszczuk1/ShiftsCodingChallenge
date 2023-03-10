@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.shiftkey.codingchallenge.design.theme.*
 import java.time.LocalDate
 
 @Composable
@@ -34,16 +35,16 @@ fun WeekCalendar(
 
     Card(
         shape = RectangleShape,
-        elevation = 8.dp
+        elevation = SizeXXS
     ) {
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colors.surface)
-                .padding(vertical = 16.dp),
+                .padding(vertical = SizeS),
             state = listState,
-            horizontalArrangement = Arrangement.spacedBy(24.dp, Alignment.CenterHorizontally),
-            contentPadding = PaddingValues(start = 16.dp, end = 16.dp)
+            horizontalArrangement = Arrangement.spacedBy(SizeM, Alignment.CenterHorizontally),
+            contentPadding = PaddingValues(start = SizeS, end = SizeS)
         ) {
             items(days) {
                 CalendarCell(
@@ -73,7 +74,8 @@ internal fun CalendarCell(
         )
         Text(
             modifier = Modifier
-                .size(24.dp)
+                .size(SizeM)
+                .padding(top = SizeXXXS)
                 .let {
                     if (isSelected) {
                         it.background(MaterialTheme.colors.primary, CircleShape)

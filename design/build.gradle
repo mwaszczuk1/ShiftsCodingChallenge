@@ -4,7 +4,6 @@ plugins {
 }
 
 android {
-    namespace 'com.shiftkey.codingchallenge.design'
     compileSdk 33
 
     defaultConfig {
@@ -16,12 +15,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -53,4 +57,6 @@ dependencies {
     implementation libs.androidx.navigation.navigationCompose
 
     debugApi libs.androidx.compose.uiTooling
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 }

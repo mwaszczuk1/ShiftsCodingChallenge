@@ -3,31 +3,31 @@ package com.shiftkey.codingchallenge.shifts.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shiftkey.codingchallenge.domain.base.ViewState
+import com.shiftkey.codingchallenge.domain.model.Shift
 import com.shiftkey.codingchallenge.domain.model.ShiftsList
 import com.shiftkey.codingchallenge.domain.useCase.GetShiftsListUseCase
+import com.shiftkey.codingchallenge.domain.useCase.SaveShiftDetailsUseCase
 import com.shiftkey.codingchallenge.domain.viewmodel.reducer
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
 class ShiftsListViewModel @Inject constructor(
-    private val getShiftsListUseCase: GetShiftsListUseCase
+    private val getShiftsListUseCase: GetShiftsListUseCase,
+    private val saveShiftDetailsUseCase: SaveShiftDetailsUseCase
 ) : ViewModel() {
 
     private val actions = MutableStateFlow<ShiftsListAction>(ShiftsListAction.None)
-    private val params = MutableStateFlow(LocalDateTime.now() to LocalDateTime.now().plusDays(7))
+    private val params = MutableStateFlow(GetShiftsListUseCase.Params())
     private val data = callbackFlow {
-        params.collect { (start, end) ->
+        params.collect { params ->
             send(ViewState.Updating)
             send(
-                getShiftsListUseCase.invoke(
-                    address = DALLAS_ADDRESS,
-                    startDateTime = start,
-                    endDateTime = end
-                )
+                getShiftsListUseCase.invoke(params)
             )
         }
     }
@@ -83,8 +83,8 @@ class ShiftsListViewModel @Inject constructor(
     fun loadNextWeek() {
         if (!state.value.isUpdating) {
             params.value = params.value.copy(
-                first = params.value.first.plusDays(7),
-                second = params.value.second.plusDays(7)
+                startDateTime = params.value.startDateTime.plusDays(7),
+                endDateTime = params.value.endDateTime.plusDays(7)
             )
         }
     }
@@ -97,8 +97,15 @@ class ShiftsListViewModel @Inject constructor(
         actions.value = ShiftsListAction.SelectDate(date)
     }
 
-    companion object {
-        private const val DALLAS_ADDRESS = "Dallas, TX"
+    fun saveShiftDetails(shift: Shift) {
+        viewModelScope.launch {
+            saveShiftDetailsUseCase.invoke(
+                shift,
+                state.value.shifts?.lat ?: 0.0,
+                state.value.shifts?.lng ?: 0.0,
+                params.value.address,
+            )
+        }
     }
 }
 

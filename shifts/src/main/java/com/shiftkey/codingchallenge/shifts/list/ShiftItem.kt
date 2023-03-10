@@ -10,28 +10,29 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.core.graphics.toColorInt
+import com.shiftkey.codingchallenge.core.formatter.toAMPMTimeRange
 import com.shiftkey.codingchallenge.design.DesignDrawables
 import com.shiftkey.codingchallenge.design.components.Chip
-import com.shiftkey.codingchallenge.design.theme.LightBlue
-import com.shiftkey.codingchallenge.design.theme.Orange
-import com.shiftkey.codingchallenge.design.theme.Yellow
+import com.shiftkey.codingchallenge.design.theme.*
 import com.shiftkey.codingchallenge.domain.model.*
+import java.time.LocalDateTime
 
 @Composable
 fun ShiftItem(
     shift: Shift,
     onClick: (Shift) -> Unit
 ) {
-    Card(elevation = 4.dp) {
+    Card(elevation = SizeXXXS) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .clickable { onClick(shift) }
-                .padding(16.dp)
+                .padding(SizeS)
         ) {
             Column(
                 modifier = Modifier
@@ -43,25 +44,25 @@ fun ShiftItem(
                 )
 
                 Text(
-                    text = shift.startTime,
+                    text = shift.startTime.toAMPMTimeRange(shift.endTime),
                     style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onBackground)
                 )
 
                 Row(
                     modifier = Modifier
-                        .padding(top = 8.dp)
+                        .padding(top = SizeXXS)
                 ) {
                     Chip(
-                        text = shift.withinDistance,
+                        text = "${shift.withinDistance} MI",
                         icon = painterResource(DesignDrawables.ic_location),
                         color = MaterialTheme.colors.onBackground
                     )
 
                     Chip(
                         modifier = Modifier
-                            .padding(start = 8.dp),
-                        text = shift.facilityType.name,
-                        color = MaterialTheme.colors.onBackground
+                            .padding(start = SizeXXS),
+                        text = shift.skill.name,
+                        color = Color(shift.skill.color.toColorInt())
                     )
                 }
             }
@@ -70,7 +71,7 @@ fun ShiftItem(
                 if (shift.premiumRate) {
                     Icon(
                         modifier = Modifier
-                            .size(24.dp)
+                            .size(SizeM)
                             .align(Alignment.End),
                         painter = painterResource(DesignDrawables.ic_star),
                         tint = Yellow,
@@ -80,8 +81,8 @@ fun ShiftItem(
 
                 Image(
                     modifier = Modifier
-                        .padding(top = 28.dp)
-                        .size(24.dp),
+                        .padding(top = SizeL)
+                        .size(SizeM),
                     painter = painterResource(
                         when (shift.shiftKind) {
                             ShiftKind.NIGHT_SHIFT -> DesignDrawables.ic_night
@@ -112,8 +113,8 @@ fun ShiftItemPreview() {
         shift = Shift(
             shiftId = 1,
             covid = false,
-            startTime = "12:00",
-            endTime = "13:00",
+            startTime = LocalDateTime.now(),
+            endTime = LocalDateTime.now(),
             facilityType = Facility("", 1, "Facility"),
             localizedSpecialty = LocalizedSpecialty(
                 abbreviation = "abc",
@@ -127,7 +128,7 @@ fun ShiftItemPreview() {
             shiftKind = ShiftKind.DAY_SHIFT,
             skill = Skill("", 1, "Skill"),
             timezone = Timezone.CENTRAL,
-            withinDistance = "10 MI"
+            withinDistance = 10
         ),
         onClick = {}
     )
