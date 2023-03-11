@@ -3,6 +3,7 @@ package com.shiftkey.codingchallenge.design.theme
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+val SizeXXL = 96.dp
 val SizeXL = 48.dp
 val SizeL = 32.dp
 val SizeM = 24.dp

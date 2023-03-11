@@ -1,6 +1,6 @@
 package com.shiftkey.codingchallenge.domain.useCase
 
-import com.shiftkey.codingchallenge.domain.model.Shift
+import com.shiftkey.codingchallenge.domain.model.shift.Shift
 import javax.inject.Inject
 
 class SaveShiftDetailsUseCase @Inject constructor(

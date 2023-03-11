@@ -1,12 +1,9 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'com.shiftkey.codingchallenge.domain'
     compileSdk 33
 
     defaultConfig {
@@ -37,13 +34,8 @@ android {
 }
 
 dependencies {
-    implementation project(":core")
-    implementation project(":data")
-
-    implementation libs.google.dagger.hiltAndroid.library
-    kapt libs.google.dagger.hiltAndroid.compiler
-
-    implementation libs.timber
-
-    testImplementation project(":core:test")
+    api libs.kotlinx.coroutines.test
+    api libs.mockk
+    api libs.kotlin.test.common
+    api libs.kotlin.test.junit
 }

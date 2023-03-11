@@ -33,7 +33,7 @@ import com.shiftkey.codingchallenge.design.components.ItemRow
 import com.shiftkey.codingchallenge.design.components.SheetHandle
 import com.shiftkey.codingchallenge.design.components.topBar.LocalTopBar
 import com.shiftkey.codingchallenge.design.theme.*
-import com.shiftkey.codingchallenge.domain.model.*
+import com.shiftkey.codingchallenge.domain.model.shift.*
 import com.shiftkey.codingchallenge.domain.useCase.ShiftDetails
 import com.shiftkey.codingchallenge.shifts.R
 import com.shiftkey.codingchallenge.shifts.details.map.DEFAULT_MAP_SIZE
@@ -261,7 +261,6 @@ fun ShiftsDetailsScreenPreview() {
                 premiumRate = true,
                 shiftKind = ShiftKind.DAY_SHIFT,
                 skill = Skill("", 1, "Skill"),
-                timezone = Timezone.CENTRAL,
                 withinDistance = 10
             ),
             location = "Dallas, TX"

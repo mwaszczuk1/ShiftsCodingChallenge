@@ -1,4 +1,4 @@
-package com.shiftkey.codingchallenge.domain.model
+package com.shiftkey.codingchallenge.domain.model.shift
 
 import com.shiftkey.codingchallenge.data.response.shifts.BaseShiftsResponse
 import java.time.LocalDate

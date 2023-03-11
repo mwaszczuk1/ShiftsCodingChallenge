@@ -19,7 +19,7 @@ import com.shiftkey.codingchallenge.core.formatter.toAMPMTimeRange
 import com.shiftkey.codingchallenge.design.DesignDrawables
 import com.shiftkey.codingchallenge.design.components.Chip
 import com.shiftkey.codingchallenge.design.theme.*
-import com.shiftkey.codingchallenge.domain.model.*
+import com.shiftkey.codingchallenge.domain.model.shift.*
 import java.time.LocalDateTime
 
 @Composable
@@ -127,7 +127,6 @@ fun ShiftItemPreview() {
             premiumRate = true,
             shiftKind = ShiftKind.DAY_SHIFT,
             skill = Skill("", 1, "Skill"),
-            timezone = Timezone.CENTRAL,
             withinDistance = 10
         ),
         onClick = {}

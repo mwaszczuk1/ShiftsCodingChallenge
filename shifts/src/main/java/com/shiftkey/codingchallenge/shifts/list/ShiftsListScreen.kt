@@ -1,5 +1,6 @@
 package com.shiftkey.codingchallenge.shifts.list
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -20,12 +21,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.shiftkey.codingchallenge.core.formatter.getDateLabel
+import com.shiftkey.codingchallenge.design.components.ScreenError
 import com.shiftkey.codingchallenge.design.components.WeekCalendar
 import com.shiftkey.codingchallenge.design.components.topBar.LocalTopBar
 import com.shiftkey.codingchallenge.design.theme.SizeS
 import com.shiftkey.codingchallenge.design.theme.SizeXXXS
-import com.shiftkey.codingchallenge.domain.model.Shift
-import com.shiftkey.codingchallenge.domain.model.ShiftsList
+import com.shiftkey.codingchallenge.domain.model.shift.Shift
+import com.shiftkey.codingchallenge.domain.model.shift.ShiftsList
 import com.shiftkey.codingchallenge.shifts.R
 import com.shiftkey.codingchallenge.shifts.details.SHIFT_DETAILS_SCREEN_ROUTE
 import java.time.LocalDate
@@ -42,13 +44,21 @@ fun ShiftsListScreen(
 
     val state by viewModel.state.collectAsState()
 
+    LocalContext.current.let {
+        LaunchedEffect(state.isUpdateError) {
+            if (state.isUpdateError) {
+                Toast.makeText(it, state.errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         state.shifts?.let {
             ShiftsListLayout(
                 data = it,
                 scrollToDay = state.scrollToDate,
                 selectedDate = state.selectedDate,
-                updateSelectedDate = viewModel::selectDate,
+                updateCurrentDate = viewModel::selectDate,
                 updateScrollToDate = viewModel::scrollToDay,
                 loadNextWeek = viewModel::loadNextWeek,
                 onItemClicked = { shift ->
@@ -60,7 +70,7 @@ fun ShiftsListScreen(
         AnimatedVisibility(
             modifier = Modifier
                 .align(Alignment.BottomCenter),
-            visible = state.isUpdating
+            visible = state.isLoading
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -70,8 +80,14 @@ fun ShiftsListScreen(
                     .scale(0.8f)
             )
         }
+        if (state.isError) {
+            ScreenError(
+                errorMessage = state.errorMessage,
+            ) {
+                viewModel.reload()
+            }
+        }
     }
-
 }
 
 @Composable
@@ -79,7 +95,7 @@ fun ShiftsListLayout(
     data: ShiftsList,
     scrollToDay: LocalDate?,
     selectedDate: LocalDate,
-    updateSelectedDate: (LocalDate) -> Unit,
+    updateCurrentDate: (LocalDate) -> Unit,
     updateScrollToDate: (LocalDate) -> Unit,
     loadNextWeek: () -> Unit,
     onItemClicked: (Shift) -> Unit
@@ -109,11 +125,29 @@ fun ShiftsListLayout(
         }
     }
 
-    LaunchedEffect(loadMore) {
-        if (loadMore) {
+    val changeCurrentDate by remember {
+        derivedStateOf {
+            if (listState.isScrollInProgress) {
+                listState.layoutInfo.visibleItemsInfo
+                    .firstOrNull().takeIf { it?.key is LocalDate }
+            } else {
+                null
+            }
+        }
+    }
+
+    (changeCurrentDate?.key as? LocalDate)?.let {
+        LaunchedEffect(Unit) {
+            updateCurrentDate(it)
+        }
+    }
+
+    if (loadMore) {
+        LaunchedEffect(Unit) {
             loadNextWeek()
         }
     }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -132,7 +166,6 @@ fun ShiftsListLayout(
         ) {
             data.shifts.forEach { (day, shifts) ->
                 item(day) {
-                    updateSelectedDate(day)
                     Text(
                         modifier = Modifier
                             .padding(top = SizeS),
@@ -140,7 +173,12 @@ fun ShiftsListLayout(
                         style = MaterialTheme.typography.h4
                     )
                 }
-                items(shifts) {
+                items(
+                    items = shifts,
+                    key = { shift ->
+                        shift.shiftId
+                    }
+                ) {
                     ShiftItem(it, onItemClicked)
                 }
             }

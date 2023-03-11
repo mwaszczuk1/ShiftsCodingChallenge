@@ -4,7 +4,7 @@ sealed class ApiException : Throwable() {
     abstract override val message: String
 
     class EmptyResponseException : ApiException() {
-        override val message: String = "No results found. Please try again later."
+        override val message: String = "No results found."
     }
 
     class ServiceUnavailableException : ApiException() {

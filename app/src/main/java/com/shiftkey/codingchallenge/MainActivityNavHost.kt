@@ -17,9 +17,7 @@ import com.shiftkey.codingchallenge.shifts.list.ShiftsListScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MainActivityNavigation(
-    connectionAvailable: Boolean
-) {
+fun MainActivityNavigation() {
     val navController = rememberAnimatedNavController()
 
     Box(
@@ -52,9 +50,6 @@ fun MainActivityNavigation(
                     ShiftDetailsScreen()
                 }
             }
-        }
-        if (!connectionAvailable) {
-//            NoInternetConnectionIndicator()
         }
     }
 }

@@ -3,8 +3,8 @@ package com.shiftkey.codingchallenge.shifts.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shiftkey.codingchallenge.domain.base.ViewState
-import com.shiftkey.codingchallenge.domain.model.Shift
-import com.shiftkey.codingchallenge.domain.model.ShiftsList
+import com.shiftkey.codingchallenge.domain.model.shift.Shift
+import com.shiftkey.codingchallenge.domain.model.shift.ShiftsList
 import com.shiftkey.codingchallenge.domain.useCase.GetShiftsListUseCase
 import com.shiftkey.codingchallenge.domain.useCase.SaveShiftDetailsUseCase
 import com.shiftkey.codingchallenge.domain.viewmodel.reducer
@@ -12,7 +12,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.time.LocalDate
-import java.time.LocalDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,7 +24,7 @@ class ShiftsListViewModel @Inject constructor(
     private val params = MutableStateFlow(GetShiftsListUseCase.Params())
     private val data = callbackFlow {
         params.collect { params ->
-            send(ViewState.Updating)
+            send(ViewState.Loading)
             send(
                 getShiftsListUseCase.invoke(params)
             )
@@ -34,10 +33,10 @@ class ShiftsListViewModel @Inject constructor(
 
     private val dataReducer = reducer<ShiftsViewState, ViewState<ShiftsList>> {
         copy(
-            isLoading = false,
-            isUpdating = it.isUpdating(),
-            isError = isError && it.isError(),
-            isUpdateError = isError && it.isError(),
+            isLoading = it.isLoading(),
+            isError = it.isError() && shifts == null,
+            errorMessage = (it as? ViewState.Error)?.errorMessage ?: "",
+            isUpdateError = (it.isError() && shifts != null),
             shifts = (it as? ViewState.Success)?.data?.let {
                 ShiftsList(
                     lat = it.lat,
@@ -77,16 +76,22 @@ class ShiftsListViewModel @Inject constructor(
                 value
             )
         }
-    }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ShiftsViewState())
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ShiftsViewState())
 
     fun loadNextWeek() {
-        if (!state.value.isUpdating) {
+        if (!state.value.isLoading) {
             params.value = params.value.copy(
                 startDateTime = params.value.startDateTime.plusDays(7),
                 endDateTime = params.value.endDateTime.plusDays(7)
             )
         }
+    }
+
+    fun reload() {
+        params.value = params.value.copy(
+            startDateTime = params.value.startDateTime,
+            endDateTime = params.value.endDateTime
+        )
     }
 
     fun scrollToDay(day: LocalDate) {
@@ -111,8 +116,8 @@ class ShiftsListViewModel @Inject constructor(
 
 data class ShiftsViewState(
     val isLoading: Boolean = true,
-    val isUpdating: Boolean = false,
     val isError: Boolean = false,
+    val errorMessage: String = "",
     val isUpdateError: Boolean = false,
     val scrollToDate: LocalDate? = null,
     val selectedDate: LocalDate = LocalDate.now(),

@@ -14,10 +14,6 @@ data class ShiftResponse(
     val facilityType: FacilityTypeResponse,
     @SerializedName("localized_specialty")
     val localizedSpecialty: LocalizedSpecialtyResponse,
-    @SerializedName("normalized_end_date_time")
-    val normalizedEndDateTime: String,
-    @SerializedName("normalized_start_date_time")
-    val normalizedStartDateTime: String,
     @SerializedName("premium_rate")
     val premiumRate: Boolean,
     @SerializedName("shift_id")

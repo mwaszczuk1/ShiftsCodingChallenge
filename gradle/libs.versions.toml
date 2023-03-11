@@ -15,10 +15,13 @@ okhttp3 = "4.9.2"
 gms-google-services = "4.3.10"
 gms-google-maps = "18.0.2"
 compose-google-maps = "2.11.1"
+mockk = "1.12.4"
 
 [libraries]
 android-tools-gradle = { module = "com.android.tools.build:gradle", version.ref = "android-gradle" }
 kotlin-gradle = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+kotlin-test-common = { module = "org.jetbrains.kotlin:kotlin-test-common", version.ref = "kotlin" }
+kotlin-test-junit = { module = "org.jetbrains.kotlin:kotlin-test-junit", version.ref = "kotlin" }
 
 androidx-activity-compose = "androidx.activity:activity-compose:1.4.0"
 androidx-compose-material = { module = "androidx.compose.material:material", version.ref = "androidx-compose" }
@@ -61,6 +64,7 @@ google-gms-playServices-maps = { module = "com.google.android.gms:play-services-
 google-maps-compose = { module = "com.google.maps.android:maps-compose", version.ref = "compose-google-maps" }
 
 timber = "com.jakewharton.timber:timber:5.0.1"
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 
 [bundles]
 

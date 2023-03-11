@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    MainActivityNavigation(true)
+                    MainActivityNavigation()
                 }
             }
         }

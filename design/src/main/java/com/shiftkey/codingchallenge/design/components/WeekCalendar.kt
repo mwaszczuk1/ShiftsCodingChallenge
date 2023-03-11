@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import com.shiftkey.codingchallenge.design.theme.*
 import java.time.LocalDate
 
@@ -26,11 +25,13 @@ fun WeekCalendar(
     selectedDate: LocalDate,
     onDateClicked: (LocalDate) -> Unit
 ) {
-
     val listState = rememberLazyListState()
 
     LaunchedEffect(selectedDate) {
-        listState.animateScrollToItem(days.indexOf(selectedDate))
+        val scrollIndex = days.indexOf(selectedDate) - 4
+        if (scrollIndex >= 0) {
+            listState.animateScrollToItem(scrollIndex)
+        }
     }
 
     Card(
@@ -44,9 +45,12 @@ fun WeekCalendar(
                 .padding(vertical = SizeS),
             state = listState,
             horizontalArrangement = Arrangement.spacedBy(SizeM, Alignment.CenterHorizontally),
-            contentPadding = PaddingValues(start = SizeS, end = SizeS)
+            contentPadding = PaddingValues(horizontal = SizeS)
         ) {
-            items(days) {
+            items(
+                items = days,
+                key = { it }
+            ) {
                 CalendarCell(
                     isSelected = it == selectedDate,
                     date = it,
@@ -93,5 +97,13 @@ internal fun CalendarCell(
             ),
             textAlign = TextAlign.Center
         )
+        if (LocalDate.now() == date) {
+            Divider(
+                modifier = Modifier
+                    .width(SizeS)
+                    .padding(top = SizeXXS),
+                thickness = SizeXXXS
+            )
+        }
     }
 }
