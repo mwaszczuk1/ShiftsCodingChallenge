@@ -183,6 +183,7 @@ fun LazyItemScope.InfoCardSection(
                         .padding(top = SizeS, bottom = SizeXXS),
                     text = stringResource(R.string.shift_details_screen_premium_shift),
                     icon = painterResource(DesignDrawables.ic_star),
+                    iconDescription = "premium_shift",
                     iconTint = Yellow
                 )
             }

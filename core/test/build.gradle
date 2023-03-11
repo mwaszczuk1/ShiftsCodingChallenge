@@ -38,4 +38,7 @@ dependencies {
     api libs.mockk
     api libs.kotlin.test.common
     api libs.kotlin.test.junit
+    api libs.androidx.compose.test.junit
+    debugApi libs.androidx.compose.test.manifest
+    api libs.test.robolectric
 }

@@ -19,6 +19,7 @@ fun ItemRow(
     text: String,
     bottomText: String? = null,
     icon: Painter,
+    iconDescription: String = "",
     iconTint: Color = MaterialTheme.colors.onBackground
 ) {
     Row(
@@ -27,7 +28,7 @@ fun ItemRow(
     ) {
         Icon(
             painter = icon,
-            contentDescription = "",
+            contentDescription = iconDescription,
             tint = iconTint
         )
         Column {

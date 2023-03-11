@@ -39,6 +39,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion libs.versions.composeKotlinCompilerVersion.get()
     }
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -55,5 +60,6 @@ dependencies {
 
     implementation libs.timber
 
+    testImplementation project(":core:test")
     testImplementation project(":core:test")
 }
