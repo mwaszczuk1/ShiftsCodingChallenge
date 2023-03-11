@@ -27,7 +27,7 @@ private val shiftResponse = ShiftResponse(
     shiftId = 1,
     shiftKind = "Day Shift",
     skill = SkillResponse("color", 1, "skillName"),
-    timezone = "UTC",
+    timezone = "Central",
     withinDistance = 10
 )
 

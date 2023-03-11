@@ -54,4 +54,6 @@ dependencies {
     implementation libs.google.maps.compose
 
     implementation libs.timber
+
+    testImplementation project(":core:test")
 }

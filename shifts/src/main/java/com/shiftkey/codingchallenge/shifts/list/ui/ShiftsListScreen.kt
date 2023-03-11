@@ -1,4 +1,4 @@
-package com.shiftkey.codingchallenge.shifts.list
+package com.shiftkey.codingchallenge.shifts.list.ui
 
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
@@ -30,6 +30,7 @@ import com.shiftkey.codingchallenge.domain.model.shift.Shift
 import com.shiftkey.codingchallenge.domain.model.shift.ShiftsList
 import com.shiftkey.codingchallenge.shifts.R
 import com.shiftkey.codingchallenge.shifts.details.SHIFT_DETAILS_SCREEN_ROUTE
+import com.shiftkey.codingchallenge.shifts.list.ShiftsListViewModel
 import java.time.LocalDate
 
 @Composable

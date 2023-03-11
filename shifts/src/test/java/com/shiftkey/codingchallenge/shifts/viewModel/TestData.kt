@@ -1,15 +1,16 @@
-package com.shiftkey.codingchallenge.domain.useCase.shifts
+package com.shiftkey.codingchallenge.shifts.viewModel
 
 import com.shiftkey.codingchallenge.domain.base.ViewState
 import com.shiftkey.codingchallenge.domain.model.shift.*
+import com.shiftkey.codingchallenge.shifts.list.model.ShiftsViewState
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-val shiftDomain = Shift(
+private val shiftDomain = Shift(
     shiftId = 1,
     covid = false,
-    startTime = LocalDateTime.of(2023, 3, 11, 6, 0, 0, 0),
-    endTime = LocalDateTime.of(2023, 3, 11, 6, 0, 0, 0).plusHours(3),
+    startTime = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0),
+    endTime = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0).plusHours(3),
     facilityType = Facility("color", 1, "facilityName"),
     localizedSpecialty = LocalizedSpecialty(
         abbreviation = "abbreviation",
@@ -38,26 +39,35 @@ val expectedGetShiftsListUseCaseOutput = ViewState.Success(
             LocalDate.of(2023, 3, 11) to listOf(
                 shiftDomain,
                 shiftDomain.copy(
-                    startTime = LocalDateTime.of(2023, 3, 11, 6, 0, 0, 0).plusHours(5),
-                    endTime = LocalDateTime.of(2023, 3, 11, 6, 0, 0, 0).plusHours(7),
+                    startTime = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0).plusHours(5),
+                    endTime = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0).plusHours(7),
                     shiftKind = ShiftKind.EVENING_SHIFT,
                     shiftId = 2
                 ),
                 shiftDomain.copy(
-                    startTime = LocalDateTime.of(2023, 3, 11, 6, 0, 0, 0).plusHours(11),
-                    endTime = LocalDateTime.of(2023, 3, 11, 6, 0, 0, 0).plusHours(15),
+                    startTime = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0).plusHours(11),
+                    endTime = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0).plusHours(15),
                     shiftKind = ShiftKind.NIGHT_SHIFT,
                     shiftId = 3
                 )
             ),
             LocalDate.of(2023, 3, 12) to listOf(
                 shiftDomain.copy(
-                    startTime = LocalDateTime.of(2023, 3, 12, 6, 0, 0, 0).plusHours(5),
-                    endTime = LocalDateTime.of(2023, 3, 12, 6, 0, 0, 0).plusHours(7),
+                    startTime = LocalDateTime.of(2023, 3, 12, 0, 0, 0, 0).plusHours(5),
+                    endTime = LocalDateTime.of(2023, 3, 12, 0, 0, 0, 0).plusHours(7),
                     shiftKind = ShiftKind.EVENING_SHIFT,
                     shiftId = 4
                 )
             )
         )
     )
+)
+
+val expectedShiftsScreenState = ShiftsViewState(
+    isLoading = false,
+    isError= false,
+    errorMessage = "",
+    isUpdateError = false,
+    scrollToDate = null,
+    shifts = expectedGetShiftsListUseCaseOutput.data
 )

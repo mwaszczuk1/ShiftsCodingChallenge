@@ -1,4 +1,4 @@
-package com.shiftkey.codingchallenge.shifts.list
+package com.shiftkey.codingchallenge.shifts.list.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

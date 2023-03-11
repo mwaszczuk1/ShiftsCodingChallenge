@@ -12,8 +12,8 @@ import com.shiftkey.codingchallenge.design.anims.*
 import com.shiftkey.codingchallenge.design.components.topBar.TopBar
 import com.shiftkey.codingchallenge.shifts.details.SHIFT_DETAILS_SCREEN_ROUTE
 import com.shiftkey.codingchallenge.shifts.details.ShiftDetailsScreen
-import com.shiftkey.codingchallenge.shifts.list.SHIFT_LIST_SCREEN_ROUTE
-import com.shiftkey.codingchallenge.shifts.list.ShiftsListScreen
+import com.shiftkey.codingchallenge.shifts.list.ui.SHIFT_LIST_SCREEN_ROUTE
+import com.shiftkey.codingchallenge.shifts.list.ui.ShiftsListScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable

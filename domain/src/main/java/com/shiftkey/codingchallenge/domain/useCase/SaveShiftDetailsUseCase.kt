@@ -6,7 +6,7 @@ import javax.inject.Inject
 class SaveShiftDetailsUseCase @Inject constructor(
     private val savedState: SavedShiftDetailsState
 ) {
-    suspend fun invoke(shift: Shift, lat: Double, lng: Double, location: String) {
+    fun invoke(shift: Shift, lat: Double, lng: Double, location: String) {
         savedState.details.value = ShiftDetails(
             shift = shift,
             lat = lat,

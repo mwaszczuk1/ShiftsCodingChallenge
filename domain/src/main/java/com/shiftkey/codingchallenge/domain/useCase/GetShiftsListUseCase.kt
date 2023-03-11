@@ -34,10 +34,7 @@ class GetShiftsListUseCase @Inject constructor(
         val type: String = "list",
         val radius: Int = 10
     ) {
-        override fun hashCode(): Int {
-            return super.hashCode() + System.currentTimeMillis().toInt()
-        }
-        override fun equals(other: Any?): Boolean = hashCode() == other.hashCode()
+
     }
 
     companion object {

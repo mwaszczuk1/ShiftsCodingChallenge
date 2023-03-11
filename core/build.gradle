@@ -37,4 +37,6 @@ android {
 dependencies {
     implementation libs.timber
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+
+    testImplementation project(":core:test")
 }

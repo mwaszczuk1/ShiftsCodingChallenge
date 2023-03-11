@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import com.shiftkey.codingchallenge.design.DesignDrawables
 import com.shiftkey.codingchallenge.design.R
 import com.shiftkey.codingchallenge.design.theme.*
@@ -19,7 +20,8 @@ fun ScreenError(
 ) {
     Column(
         modifier = Modifier
-            .fillMaxSize(),
+            .fillMaxSize()
+            .padding(horizontal = SizeL),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -35,7 +37,8 @@ fun ScreenError(
                 .padding(top = SizeS),
             text = errorMessage,
             style = MaterialTheme.typography.h4,
-            color = Black
+            color = Black,
+            textAlign = TextAlign.Center
         )
 
         if (isRetryVisible) {

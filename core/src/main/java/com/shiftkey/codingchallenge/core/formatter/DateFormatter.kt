@@ -3,7 +3,6 @@ package com.shiftkey.codingchallenge.core.formatter
 import android.content.Context
 import com.shiftkey.codingchallenge.core.R
 import java.time.LocalDate
-import java.util.*
 
 /**
  * Returns date label in format ->  (DAY IN WEEK), (MONTH_NAME) (DAY_IN_MONTH)
@@ -14,8 +13,7 @@ fun LocalDate.getDateLabel(context: Context): String {
         if (this == LocalDate.now())
             context.getString(R.string.today)
         else
-            this.dayOfWeek.name
-    val monthName = this.month.name.lowercase()
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            this.dayOfWeek.name.capitalizeLowerCase()
+    val monthName = this.month.name.capitalizeLowerCase()
     return "$dayName, $monthName ${this.dayOfMonth}"
 }

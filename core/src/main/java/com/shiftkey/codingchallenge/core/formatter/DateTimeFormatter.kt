@@ -5,7 +5,6 @@ import com.shiftkey.codingchallenge.core.R
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.*
 import kotlin.time.Duration.Companion.hours
 
 
@@ -22,7 +21,7 @@ fun LocalDateTime.toAMPMTime(): String {
 }
 
 /**
- * Results with eg.: 8:21am, or 8:21pm
+ * Results with eg.: 8:21am - 9:30am
  */
 fun LocalDateTime.toAMPMTimeRange(other: LocalDateTime): String {
     return "${this.toAMPMTime()} - ${other.toAMPMTime()}"
@@ -37,9 +36,8 @@ fun LocalDateTime.getDateLabel(context: Context): String {
         if (this == LocalDateTime.now())
             context.getString(R.string.today)
         else
-            this.dayOfWeek.name
-    val monthName = this.month.name.lowercase()
-        .replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }
+            this.dayOfWeek.name.capitalizeLowerCase()
+    val monthName = this.month.name.capitalizeLowerCase()
     return "$dayName, $monthName ${this.dayOfMonth}"
 }
 
