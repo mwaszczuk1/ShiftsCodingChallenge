@@ -38,5 +38,7 @@ dependencies {
     implementation libs.timber
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 
+    implementation libs.kotlinx.coroutines.android
+
     testImplementation project(":core:test")
 }

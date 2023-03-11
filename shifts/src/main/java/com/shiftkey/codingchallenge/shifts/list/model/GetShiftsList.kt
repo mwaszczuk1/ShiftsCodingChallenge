@@ -7,13 +7,13 @@ import java.time.LocalDate
 
 object GetShiftsList {
 
-    val dataReducer = reducer<ShiftsViewState, ViewState<ShiftsList>> {
+    val dataReducer = reducer<ShiftsViewState, ViewState<ShiftsList>> { data ->
         copy(
-            isLoading = it.isLoading(),
-            isError = it.isError() && shifts == null,
-            errorMessage = (it as? ViewState.Error)?.errorMessage ?: "",
-            isUpdateError = (it.isError() && shifts != null),
-            shifts = (it as? ViewState.Success)?.data?.let {
+            isLoading = data.isLoading(),
+            isError = data.isError() && shifts == null,
+            errorMessage = (data as? ViewState.Error)?.errorMessage ?: "",
+            isUpdateError = (data.isError() && shifts != null),
+            shifts = (data as? ViewState.Success)?.data?.let {
                 ShiftsList(
                     lat = it.lat,
                     lng = it.lng,
@@ -28,16 +28,16 @@ object GetShiftsList {
         )
     }
 
-    val screenActionsReducer = reducer<ShiftsViewState, ShiftsListAction> {
-        when (it) {
+    val screenActionsReducer = reducer<ShiftsViewState, ShiftsListAction> { action ->
+        when (action) {
             is ShiftsListAction.ScrollToDay -> {
                 copy(
-                    scrollToDate = it.date
+                    scrollToDate = action.date
                 )
             }
             is ShiftsListAction.SelectDate -> {
                 copy(
-                    selectedDate = it.date
+                    selectedDate = action.date
                 )
             }
             else -> this

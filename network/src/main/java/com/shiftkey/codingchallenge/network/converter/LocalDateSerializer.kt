@@ -13,7 +13,7 @@ class LocalDateSerializer : JsonSerializer<LocalDate?>,
         typeOfSrc: Type?,
         context: JsonSerializationContext?
     ): JsonElement {
-        return JsonPrimitive(FORMATTER.format(src));
+        return JsonPrimitive(FORMATTER.format(src))
     }
 
     override fun deserialize(
@@ -21,7 +21,7 @@ class LocalDateSerializer : JsonSerializer<LocalDate?>,
         typeOfT: Type?,
         context: JsonDeserializationContext?
     ): LocalDate? {
-        return FORMATTER.parse(json.asString, LocalDate::from);
+        return FORMATTER.parse(json.asString, LocalDate::from)
     }
 
     companion object {

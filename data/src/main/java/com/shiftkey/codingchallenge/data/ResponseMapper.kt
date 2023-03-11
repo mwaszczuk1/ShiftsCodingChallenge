@@ -2,7 +2,6 @@ package com.shiftkey.codingchallenge.data
 
 import com.shiftkey.codingchallenge.data.exceptions.ApiException
 import retrofit2.Response
-import timber.log.Timber
 
 class ResponseMapper {
 

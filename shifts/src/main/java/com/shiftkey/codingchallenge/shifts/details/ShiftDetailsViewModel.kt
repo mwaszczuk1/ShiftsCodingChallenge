@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ShiftDetailsViewModel @Inject constructor(
-    private val getShiftDetailsUseCase: GetShiftDetailsUseCase
+    getShiftDetailsUseCase: GetShiftDetailsUseCase
 ) : ViewModel() {
 
     val state = getShiftDetailsUseCase.invoke()

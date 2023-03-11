@@ -67,7 +67,6 @@ dependencies {
     implementation libs.androidx.navigation.navigationCompose
     implementation libs.google.accompanist.navigation.material
     implementation libs.google.accompanist.navigation.animation
-//    implementation libs.androidx.core.ktx
     implementation libs.kotlinx.coroutines.core
 
     implementation libs.androidx.lifecycle.runtime.ktx

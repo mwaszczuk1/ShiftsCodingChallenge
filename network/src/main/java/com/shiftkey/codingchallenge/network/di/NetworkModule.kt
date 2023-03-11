@@ -1,7 +1,5 @@
 package com.shiftkey.codingchallenge.network.di
 
-import android.app.Application
-import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.shiftkey.codingchallenge.network.BuildConfig
@@ -25,7 +23,7 @@ class WebSocketsModule {
 
     @Provides
     @Singleton
-    fun provideOkHttp(chucker: ChuckerInterceptor): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttp(): OkHttpClient = OkHttpClient.Builder()
         .let {
             if (BuildConfig.DEBUG) {
                 it.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -33,12 +31,7 @@ class WebSocketsModule {
                 it
             }
         }
-        .addInterceptor(chucker)
         .build()
-
-    @Singleton
-    @Provides
-    fun provideChuckerInterceptor(app: Application): ChuckerInterceptor = ChuckerInterceptor(app)
 
     @Singleton
     @Provides

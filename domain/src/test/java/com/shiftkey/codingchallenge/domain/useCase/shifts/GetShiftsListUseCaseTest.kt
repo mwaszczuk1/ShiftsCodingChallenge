@@ -4,7 +4,7 @@ import com.shiftkey.codingchallenge.core.test.CoroutineRule
 import com.shiftkey.codingchallenge.data.repository.ShiftsRepository
 import com.shiftkey.codingchallenge.domain.base.ViewState
 import com.shiftkey.codingchallenge.domain.useCase.GetShiftsListUseCase
-import com.shiftkey.codingchallenge.domain.util.DispatchersProvider
+import com.shiftkey.codingchallenge.core.DispatchersProvider
 import com.shiftkey.codingchallenge.domain.util.NetworkErrorHandler
 import io.mockk.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi

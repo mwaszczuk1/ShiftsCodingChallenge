@@ -1,6 +1,6 @@
 package com.shiftkey.codingchallenge.domain.di
 
-import com.shiftkey.codingchallenge.domain.util.DispatchersProvider
+import com.shiftkey.codingchallenge.core.DispatchersProvider
 import com.shiftkey.codingchallenge.domain.util.NetworkErrorHandler
 import dagger.Module
 import dagger.Provides

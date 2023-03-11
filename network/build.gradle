@@ -45,8 +45,4 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor"
     api libs.squareup.retrofit
     implementation libs.squareup.retrofit.gson.converter
-
-    // Chucker
-    debugImplementation 'com.github.chuckerteam.chucker:library:3.5.2'
-    releaseImplementation 'com.github.chuckerteam.chucker:library-no-op:3.5.2'
 }

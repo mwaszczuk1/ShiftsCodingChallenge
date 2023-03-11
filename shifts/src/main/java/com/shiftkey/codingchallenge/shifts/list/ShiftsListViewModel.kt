@@ -24,7 +24,7 @@ class ShiftsListViewModel @Inject constructor(
 
     private val actions = MutableStateFlow<ShiftsListAction>(ShiftsListAction.None)
     private val requestParams = MutableStateFlow(GetShiftsListUseCase.Params())
-    val data = callbackFlow {
+    private val data = callbackFlow {
         requestParams.collect { requestParams ->
             send(ViewState.Loading)
             send(

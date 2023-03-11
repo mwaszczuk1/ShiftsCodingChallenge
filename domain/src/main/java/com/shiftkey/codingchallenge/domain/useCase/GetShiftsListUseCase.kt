@@ -5,7 +5,7 @@ import com.shiftkey.codingchallenge.domain.base.UseCase
 import com.shiftkey.codingchallenge.domain.base.ViewState
 import com.shiftkey.codingchallenge.domain.model.shift.ShiftsList
 import com.shiftkey.codingchallenge.domain.model.shift.toDomain
-import com.shiftkey.codingchallenge.domain.util.DispatchersProvider
+import com.shiftkey.codingchallenge.core.DispatchersProvider
 import com.shiftkey.codingchallenge.domain.util.NetworkErrorHandler
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
@@ -33,9 +33,7 @@ class GetShiftsListUseCase @Inject constructor(
         val endDateTime: LocalDateTime = LocalDateTime.now().plusDays(7),
         val type: String = "list",
         val radius: Int = 10
-    ) {
-
-    }
+    )
 
     companion object {
         private const val DALLAS_ADDRESS = "Dallas, TX"
