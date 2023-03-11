@@ -1,5 +1,5 @@
 <resources>
-    <string name="shifts_list_screen_title">Explore shifts</string>
+    <string name="shifts_list_screen_title">Explore shifts for Dallas, TX</string>
     <string name="shift_details_screen_title">Shift Details</string>
 
     <string name="shift_details_screen_approx_location">Within %1$s mi of this location</string>
