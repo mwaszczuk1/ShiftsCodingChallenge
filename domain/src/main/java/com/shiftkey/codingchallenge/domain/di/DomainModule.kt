@@ -5,18 +5,15 @@ import com.shiftkey.codingchallenge.domain.util.NetworkErrorHandler
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
+import dagger.hilt.android.components.ViewModelComponent
 
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 @Module
 class DataModule {
 
     @Provides
-    @Singleton
     fun provideNetowrkErrorHandler(): NetworkErrorHandler = NetworkErrorHandler()
 
     @Provides
-    @Singleton
     fun provideDispatchersProvider(): DispatchersProvider = DispatchersProvider()
 }

@@ -19,7 +19,7 @@ import java.time.OffsetDateTime
 
 @InstallIn(SingletonComponent::class)
 @Module
-class WebSocketsModule {
+class NetworkModule {
 
     @Provides
     @Singleton
@@ -33,8 +33,8 @@ class WebSocketsModule {
         }
         .build()
 
-    @Singleton
     @Provides
+    @Singleton
     fun provideGson(): Gson = GsonBuilder()
         .registerTypeAdapter(OffsetDateTime::class.java, OffsetDateTimeSerializer())
         .registerTypeAdapter(LocalDate::class.java, LocalDateSerializer())

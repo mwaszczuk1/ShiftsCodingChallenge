@@ -13,6 +13,7 @@ import com.shiftkey.codingchallenge.shifts.list.model.ShiftsViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -25,7 +26,7 @@ class ShiftsListViewModel @Inject constructor(
     private val actions = MutableStateFlow<ShiftsListAction>(ShiftsListAction.None)
     private val requestParams = MutableStateFlow(GetShiftsListUseCase.Params())
     private val data = callbackFlow {
-        requestParams.collect { requestParams ->
+        requestParams.collectLatest { requestParams ->
             send(ViewState.Loading)
             send(
                 getShiftsListUseCase.invoke(requestParams)
@@ -41,7 +42,7 @@ class ShiftsListViewModel @Inject constructor(
                 value
             )
         }
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), ShiftsViewState())
+    }.stateIn(viewModelScope, SharingStarted.Lazily, ShiftsViewState())
 
     fun loadNextWeek() {
         if (!state.value.isLoading) {
@@ -78,5 +79,10 @@ class ShiftsListViewModel @Inject constructor(
             state.value.shifts?.lng ?: 0.0,
             requestParams.value.address,
         )
+    }
+
+    override fun onCleared() {
+        Timber.d("CLEARED")
+        super.onCleared()
     }
 }

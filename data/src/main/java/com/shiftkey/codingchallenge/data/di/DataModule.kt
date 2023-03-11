@@ -19,6 +19,5 @@ class DataModule {
         retrofit.create(ShiftsApi::class.java)
 
     @Provides
-    @Singleton
     fun provideResponseMapper(): ResponseMapper = ResponseMapper()
 }
