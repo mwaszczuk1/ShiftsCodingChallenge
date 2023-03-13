@@ -37,8 +37,8 @@ class GetShiftsListUseCaseTest {
     )
 
     private val address = "someAddress"
-    private val start = LocalDateTime.now()
-    private val end = start.plusDays(7)
+    private val start = LocalDateTime.of(2023, 3, 11, 0, 0, 0, 0)
+    private val end = start.plusDays(1)
     private val type = "list"
     private val radius = 10
 

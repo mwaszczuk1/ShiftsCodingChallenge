@@ -58,6 +58,7 @@ val expectedGetShiftsListUseCaseOutput = ViewState.Success(
                     shiftId = 4
                 )
             )
-        )
+        ),
+        calendarDays = listOf(LocalDate.of(2023, 3, 11), LocalDate.of(2023, 3, 12))
     )
 )
