@@ -1,5 +1,6 @@
 package com.shiftkey.codingchallenge.core.converter
 
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.time.ZoneId
@@ -22,4 +23,15 @@ fun OffsetDateTime.toSystemZonedLocalDateTime(timezone: String): LocalDateTime {
         // why not just return a date with "+06:00" offset?
         .withOffsetSameLocal(ZoneOffset.of(offsetString))
         .atZoneSameInstant(ZoneId.systemDefault()).toLocalDateTime()
+}
+
+fun LocalDateTime.datesBetween(other: LocalDateTime): List<LocalDate> {
+    val higher = takeIf { isAfter(other) } ?: other
+    val lower = takeIf { isBefore(other) } ?: other
+    val days = higher.dayOfYear - lower.dayOfYear
+    return buildList {
+        for (k in 0..days) {
+            add(lower.plusDays(k.toLong()).toLocalDate())
+        }
+    }
 }

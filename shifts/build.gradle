@@ -27,6 +27,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -58,8 +59,9 @@ dependencies {
     implementation libs.google.gms.playServices.maps
     implementation libs.google.maps.compose
 
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
+
     implementation libs.timber
 
-    testImplementation project(":core:test")
     testImplementation project(":core:test")
 }

@@ -13,7 +13,6 @@ class ResponseMapper {
         }
         return when {
             response.isSuccessful && responseBody != null -> responseBody
-            response.code() == 204 -> throw ApiException.EmptyResponseException()
             response.code() in (500..599) -> {
                 throw ApiException.ServiceUnavailableException()
             }

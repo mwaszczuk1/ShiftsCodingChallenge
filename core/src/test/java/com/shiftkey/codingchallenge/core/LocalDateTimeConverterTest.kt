@@ -1,15 +1,13 @@
 package com.shiftkey.codingchallenge.core
 
+import com.shiftkey.codingchallenge.core.converter.datesBetween
 import com.shiftkey.codingchallenge.core.converter.toSystemZonedLocalDateTime
 import io.mockk.every
 import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import org.junit.After
 import org.junit.Test
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
-import java.time.ZoneId
-import java.time.ZoneOffset
+import java.time.*
 import kotlin.test.assertEquals
 
 class LocalDateTimeConverterTest {
@@ -72,5 +70,22 @@ class LocalDateTimeConverterTest {
             LocalDateTime.of(2023, 3, 11, 18, 0, 0, 0),
             localDateTime
         )
+    }
+
+    @Test
+    fun `should show dates between two LocalDateTimes`() {
+        // Whenever
+        val localDateTime1 = LocalDateTime.of(2023, 3, 13, 13, 9, 0, 0)
+        val localDateTime2 = LocalDateTime.of(2023, 3, 19, 0, 0, 0, 0)
+        val date = LocalDate.of(2023, 3, 13)
+        val expected = listOf(date, date.plusDays(1), date.plusDays(2), date.plusDays(3), date.plusDays(4), date.plusDays(5), date.plusDays(6))
+
+        // When
+        val result = localDateTime1.datesBetween(localDateTime2)
+        val result2 = localDateTime2.datesBetween(localDateTime1)
+
+        // Then
+        assertEquals(expected, result)
+        assertEquals(expected, result2)
     }
 }

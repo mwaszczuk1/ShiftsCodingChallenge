@@ -3,17 +3,16 @@ package com.shiftkey.codingchallenge.shifts.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.shiftkey.codingchallenge.domain.base.ViewState
-import com.shiftkey.codingchallenge.domain.model.shift.Shift
 import com.shiftkey.codingchallenge.domain.useCase.GetShiftsListUseCase
 import com.shiftkey.codingchallenge.domain.useCase.SaveShiftDetailsUseCase
 import com.shiftkey.codingchallenge.shifts.list.model.GetShiftsList.dataReducer
 import com.shiftkey.codingchallenge.shifts.list.model.GetShiftsList.screenActionsReducer
 import com.shiftkey.codingchallenge.shifts.list.model.GetShiftsList.ShiftsListAction
+import com.shiftkey.codingchallenge.shifts.list.model.ShiftListItem
 import com.shiftkey.codingchallenge.shifts.list.model.ShiftsViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.time.LocalDate
 import javax.inject.Inject
 
@@ -72,17 +71,12 @@ class ShiftsListViewModel @Inject constructor(
         actions.value = ShiftsListAction.SelectDate(date)
     }
 
-    fun saveShiftDetails(shift: Shift) {
+    fun saveShiftDetails(shift: ShiftListItem.Shift) {
         saveShiftDetailsUseCase.invoke(
-            shift,
-            state.value.shifts?.lat ?: 0.0,
-            state.value.shifts?.lng ?: 0.0,
+            shift.toDomain(),
+            state.value.lat,
+            state.value.lng,
             requestParams.value.address,
         )
-    }
-
-    override fun onCleared() {
-        Timber.d("CLEARED")
-        super.onCleared()
     }
 }

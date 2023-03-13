@@ -26,11 +26,11 @@ import com.shiftkey.codingchallenge.design.components.WeekCalendar
 import com.shiftkey.codingchallenge.design.components.topBar.LocalTopBar
 import com.shiftkey.codingchallenge.design.theme.SizeS
 import com.shiftkey.codingchallenge.design.theme.SizeXXXS
-import com.shiftkey.codingchallenge.domain.model.shift.Shift
-import com.shiftkey.codingchallenge.domain.model.shift.ShiftsList
 import com.shiftkey.codingchallenge.shifts.R
 import com.shiftkey.codingchallenge.shifts.details.SHIFT_DETAILS_SCREEN_ROUTE
 import com.shiftkey.codingchallenge.shifts.list.ShiftsListViewModel
+import com.shiftkey.codingchallenge.shifts.list.model.ShiftListItem
+import timber.log.Timber
 import java.time.LocalDate
 
 @Composable
@@ -59,6 +59,7 @@ fun ShiftsListScreen(
                 data = it,
                 scrollToDay = state.scrollToDate,
                 selectedDate = state.selectedDate,
+                calendarDays = state.calendarDays,
                 updateCurrentDate = viewModel::selectDate,
                 updateScrollToDate = viewModel::scrollToDay,
                 loadNextWeek = viewModel::loadNextWeek,
@@ -93,23 +94,20 @@ fun ShiftsListScreen(
 
 @Composable
 fun ShiftsListLayout(
-    data: ShiftsList,
+    data: List<ShiftListItem>,
+    calendarDays: List<LocalDate>,
     scrollToDay: LocalDate?,
     selectedDate: LocalDate,
     updateCurrentDate: (LocalDate) -> Unit,
     updateScrollToDate: (LocalDate) -> Unit,
     loadNextWeek: () -> Unit,
-    onItemClicked: (Shift) -> Unit
+    onItemClicked: (ShiftListItem.Shift) -> Unit
 ) {
     val listState = rememberLazyListState()
 
     LaunchedEffect(scrollToDay) {
         scrollToDay?.let { date ->
-            val dateIndex = data.shifts.toList().indexOfFirst { it.first == date }
-            val index = data.shifts.toList()
-                .subList(0, dateIndex).sumOf { (_, shifts) ->
-                    1 + shifts.size
-                }
+            val index = data.filterIsInstance<ShiftListItem.Header>().indexOfFirst { it.date == date }
             listState.animateScrollToItem(index)
         }
     }
@@ -129,8 +127,11 @@ fun ShiftsListLayout(
     val changeCurrentDate by remember {
         derivedStateOf {
             if (listState.isScrollInProgress) {
-                listState.layoutInfo.visibleItemsInfo
+                Timber.tag("LOL").d("scroll in progress")
+                val changeDate = listState.layoutInfo.visibleItemsInfo
                     .firstOrNull().takeIf { it?.key is LocalDate }
+                changeDate
+
             } else {
                 null
             }
@@ -154,7 +155,7 @@ fun ShiftsListLayout(
             .fillMaxSize()
     ) {
         WeekCalendar(
-            days = data.shifts.keys.toList(),
+            days = calendarDays,
             selectedDate = selectedDate,
             onDateClicked = updateScrollToDate
         )
@@ -165,22 +166,24 @@ fun ShiftsListLayout(
             contentPadding = PaddingValues(bottom = SizeS, start = SizeS, end = SizeS),
             verticalArrangement = Arrangement.spacedBy(SizeS)
         ) {
-            data.shifts.forEach { (day, shifts) ->
-                item(day) {
-                    Text(
+            items(
+                items = data,
+                key = { item ->
+                    when (item) {
+                        is ShiftListItem.Shift -> item.shiftId.toString()
+                        is ShiftListItem.Header -> item.date
+                    }
+                },
+                contentType = { item -> item.contentType }
+            ) {
+                when (it) {
+                    is ShiftListItem.Shift -> ShiftItem(shift = it, onClick = onItemClicked)
+                    is ShiftListItem.Header -> Text(
                         modifier = Modifier
                             .padding(top = SizeS),
-                        text = day.getDateLabel(LocalContext.current),
+                        text = it.date.getDateLabel(LocalContext.current),
                         style = MaterialTheme.typography.h4
                     )
-                }
-                items(
-                    items = shifts,
-                    key = { shift ->
-                        shift.shiftId
-                    }
-                ) {
-                    ShiftItem(it, onItemClicked)
                 }
             }
         }

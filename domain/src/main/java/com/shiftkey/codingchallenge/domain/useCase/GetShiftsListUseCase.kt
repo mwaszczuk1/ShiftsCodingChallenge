@@ -6,6 +6,7 @@ import com.shiftkey.codingchallenge.domain.base.ViewState
 import com.shiftkey.codingchallenge.domain.model.shift.ShiftsList
 import com.shiftkey.codingchallenge.domain.model.shift.toDomain
 import com.shiftkey.codingchallenge.core.DispatchersProvider
+import com.shiftkey.codingchallenge.core.converter.datesBetween
 import com.shiftkey.codingchallenge.domain.util.NetworkErrorHandler
 import kotlinx.coroutines.withContext
 import java.time.LocalDateTime
@@ -23,7 +24,7 @@ class GetShiftsListUseCase @Inject constructor(
         safeApiCall {
             shiftsRepository.getShifts(
                 params.address, params.startDateTime, params.endDateTime, params.type, params.radius
-            ).toDomain()
+            ).toDomain(params.startDateTime.datesBetween(params.endDateTime))
         }
     }
 

@@ -28,6 +28,7 @@ android {
         }
     }
     compileOptions {
+        coreLibraryDesugaringEnabled true
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -42,6 +43,8 @@ dependencies {
 
     implementation libs.google.dagger.hiltAndroid.library
     kapt libs.google.dagger.hiltAndroid.compiler
+
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.2.2'
 
     implementation libs.timber
 

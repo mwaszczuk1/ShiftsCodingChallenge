@@ -3,10 +3,6 @@ package com.shiftkey.codingchallenge.data.exceptions
 sealed class ApiException : Throwable() {
     abstract override val message: String
 
-    class EmptyResponseException : ApiException() {
-        override val message: String = "No results found."
-    }
-
     class ServiceUnavailableException : ApiException() {
         override val message: String = "We're sorry, but the service is currently unavailable. Please try again later."
     }

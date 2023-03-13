@@ -20,12 +20,13 @@ import com.shiftkey.codingchallenge.design.DesignDrawables
 import com.shiftkey.codingchallenge.design.components.Chip
 import com.shiftkey.codingchallenge.design.theme.*
 import com.shiftkey.codingchallenge.domain.model.shift.*
+import com.shiftkey.codingchallenge.shifts.list.model.ShiftListItem
 import java.time.LocalDateTime
 
 @Composable
 fun ShiftItem(
-    shift: Shift,
-    onClick: (Shift) -> Unit
+    shift: ShiftListItem.Shift,
+    onClick: (ShiftListItem.Shift) -> Unit
 ) {
     Card(elevation = SizeXXXS) {
         Row(
@@ -110,7 +111,7 @@ fun ShiftItem(
 @Composable
 fun ShiftItemPreview() {
     ShiftItem(
-        shift = Shift(
+        shift = ShiftListItem.Shift(
             shiftId = 1,
             covid = false,
             startTime = LocalDateTime.now(),

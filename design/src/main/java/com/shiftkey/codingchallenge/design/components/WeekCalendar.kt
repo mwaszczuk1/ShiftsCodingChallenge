@@ -73,6 +73,10 @@ internal fun CalendarCell(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
+            text = date.month.name.take(3),
+            style = MaterialTheme.typography.body2.copy(color = MaterialTheme.colors.onSurface)
+        )
+        Text(
             text = date.dayOfWeek.name.first().toString(),
             style = MaterialTheme.typography.body1.copy(color = MaterialTheme.colors.onSurface)
         )
